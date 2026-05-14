@@ -2,6 +2,7 @@ const studyForm = document.getElementById('study-form');
 const studyTitleInput = document.getElementById('study-title');
 const studyTimeInput = document.getElementById('study-time');
 const studyLogList = document.getElementById('study-log-list');
+const totalStudyTime = document.getElementById('total-study-time');
 
 const studyLogs = [];
 
@@ -34,7 +35,24 @@ function renderStudyLogs() {
     });
 }
 
+function calculateTotalStudyTime() {
+    let total = 0;
+
+    studyLogs.forEach(function (studyLog) {
+        total = total + Number(studyLog.time);
+    });
+
+    return total;
+}
+
+function renderTotalStudyTime() {
+    const total = calculateTotalStudyTime();
+
+    totalStudyTime.textContent = total + '分';
+}
+
 renderStudyLogs();
+renderTotalStudyTime();
 
 studyForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -50,6 +68,7 @@ studyForm.addEventListener('submit', function(event) {
     studyLogs.push(studyLog);
 
     renderStudyLogs();
+    renderTotalStudyTime();
 
     studyTitleInput.value = '';
     studyTimeInput.value = '';
