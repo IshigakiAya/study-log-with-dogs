@@ -3,6 +3,7 @@ const studyTitleInput = document.getElementById('study-title');
 const studyTimeInput = document.getElementById('study-time');
 const studyLogList = document.getElementById('study-log-list');
 const totalStudyTime = document.getElementById('total-study-time');
+const errorMessage = document.getElementById('error-message');
 
 const studyLogs = [];
 
@@ -74,6 +75,23 @@ studyForm.addEventListener('submit', function(event) {
 
     const studyTitle = studyTitleInput.value;
     const studyTime = studyTimeInput.value;
+
+    if (studyTitle === '') {
+        errorMessage.textContent = '学習内容を入力してください。';
+        return;
+    }
+
+    if (studyTime === '') {
+        errorMessage.textContent = '学習時間を入力してください。';
+        return;
+    }
+
+    if (Number(studyTime) <= 0) {
+        errorMessage.textContent = '学習時間は1分以上で入力してください。';
+        return;
+    }
+
+    errorMessage.textContent = '';
 
     const studyLog = {
         title: studyTitle,
