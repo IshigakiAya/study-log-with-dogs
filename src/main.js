@@ -24,12 +24,27 @@ function renderStudyLogs() {
         return;
     }
 
-    studyLogs.forEach(function (studyLog) {
+    studyLogs.forEach(function (studyLog, index) {
         const studyLogItem = document.createElement('li');
 
         studyLogItem.textContent = studyLog.title + '：' + studyLog.time + '分';
 
-        studyLogItem.className = 'rounded border border-gray-200 p-3 text-gray-700';
+        studyLogItem.className = 'flex items-center justify-between rounded border border-gray-200 p-3 text-gray-700';
+
+        const deleteButton = document.createElement('button');
+
+        deleteButton.textContent = '削除';
+
+        deleteButton.className = 'ml-4 rounded bg-red-500 px-2 py-1 text-sm text-white transition hover:bg-red-400';
+
+        deleteButton.addEventListener('click', function () {
+            studyLogs.splice(index, 1);
+
+            renderStudyLogs();
+            renderTotalStudyTime();
+        });
+
+        studyLogItem.appendChild(deleteButton);
 
         studyLogList.appendChild(studyLogItem);
     });
